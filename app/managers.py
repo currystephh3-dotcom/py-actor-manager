@@ -6,8 +6,8 @@ from app.models import Actor
 class ActorManager:
 
     def __init__(self, db_name: str, table_name: str) -> None:
-        self.db_name = "cinema_db"
-        self.table_name = "actors"
+        self.db_name = db_name
+        self.table_name = table_name
         self._connection = sqlite3.connect(self.db_name)
 
     def create(self, first_name: str, last_name: str) -> None:
@@ -32,7 +32,7 @@ class ActorManager:
     ) -> None:
         self._connection.execute(
             f"UPDATE {self.table_name} "
-            "SET (first_name, last_name) = (?, ?)"
+            "SET first_name = ?, last_name = ? "
             "WHERE id = ?",
             (new_first_name, new_last_name, pk)
         )
